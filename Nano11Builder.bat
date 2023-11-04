@@ -171,7 +171,10 @@ del C:\scratchdir\Windows\Branding\basebrd\basebrd.dll
 copy /y %~dp0basebrd.dll c:\scratchdir\Windows\Branding\basebrd\basebrd.dll
 copy /y %~dp0wallpaperlight.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img0.jpg
 echo Adding Post-Setup
-copy /y %~dp0Postsetup c:\scratchdir\Users\Public\Desktop\
+cd /d c:\scratchdir\
+md post-setup
+powershell -command "Expand-Archive post.zip C:\scratchdir\post-setup"
+move C:\scratchdir\post C:\users\public\desktop\
 echo Cleaning up image...
 dism /image:c:\scratchdir /Cleanup-Image /StartComponentCleanup /ResetBase
 echo Cleanup complete.
