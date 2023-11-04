@@ -166,7 +166,12 @@ reg unload HKLM\zSYSTEM >nul 2>&1
 echo Replacing Wallpapers
 del C:\ScratchDir\Windows\Web\Wallpaper\Windows\img19.jpg
 copy /y %~dp0wallpaperdark.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img19.jpg
+echo Adding Branding
+del C:\scratchdir\Windows\Branding\basebrd\basebrd.dll
+copy /y %~dp0basebrd.dll c:\scratchdir\Windows\Branding\basebrd\basebrd.dll
 copy /y %~dp0wallpaperlight.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img0.jpg
+echo Adding Post-Setup
+copy /y %~dp0Postsetup c:\scratchdir\Users\Public\Desktop\
 echo Cleaning up image...
 dism /image:c:\scratchdir /Cleanup-Image /StartComponentCleanup /ResetBase
 echo Cleanup complete.
