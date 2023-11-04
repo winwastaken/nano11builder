@@ -166,6 +166,8 @@ echo Replacing Wallpapers
 del C:\ScratchDir\Windows\Web\Wallpaper\Windows\img19.jpg
 copy /y %~dp0wallpaperdark.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img19.jpg
 copy /y %~dp0wallpaperlight.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img0.jpg
+del C:\scratchdir\Windows\Web\Screen\img100.jpg
+copy /y %~dp0wallpaperdark.jpg C:\Scratchdir\Windows\Web\Screen\img100.jpg
 echo Cleaning up image...
 dism /image:c:\scratchdir /Cleanup-Image /StartComponentCleanup /ResetBase
 echo Cleanup complete.
