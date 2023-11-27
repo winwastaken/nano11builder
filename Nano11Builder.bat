@@ -40,28 +40,29 @@ md c:\scratchdir
 dism /mount-image /imagefile:C:\nano11\sources\install.wim /index:%index% /mountdir:c:\scratchdir
 echo Mounting complete! Performing removal of applications...
 echo Removing UWP
-powerhell -Command Get-AppxProvisionedPackage -Path C:\scratchdir | ForEach-Object { Remove-AppxProvisionedPackage -Path C:\scratchdir -PackageName $_.PackageName }
+powershell -Command Get-AppxProvisionedPackage -Path C:\scratchdir\ | Remove-AppxProvisionedPackage -All
 
 echo Removing of system apps complete! Now proceeding to removal of system packages...
 timeout /t 1 /nobreak > nul
 cls
 echo Removing Handwriting:
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-Handwriting-en-us-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-Handwriting-en-us-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
 echo Removing OCR:
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-OCR-en-us-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-OCR-en-us-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
 echo Removing Speech:
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-Speech-en-us-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-Speech-en-us-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
 echo Removing TTS:
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-TextToSpeech-en-us-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-TextToSpeech-en-us-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
 echo Removing Media Player Legacy:
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~en-US~10.0.22621.1 > nul
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~~10.0.22621.1265 > nul
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~~10.0.22621.1 > nul
-echo Removing OneDrive:
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~en-US~10.0.22631.1 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~~10.0.22631.2715 > nul
+dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~~10.0.22631.2715 > nul
+echo Removing OneDrive
 takeown /f C:\scratchdir\Windows\System32\OneDriveSetup.exe
 icacls C:\scratchdir\Windows\System32\OneDriveSetup.exe /grant Administrators:F /T /C
 del /f /q /s "C:\scratchdir\Windows\System32\OneDriveSetup.exe"
+del /f /q /s :C:\scratchdir\Windows\System32\OneDrive.ico
 echo Removal complete!
 timeout /t 2 /nobreak > nul
 cls
@@ -111,6 +112,7 @@ reg unload HKLM\zSOFTWARE >nul 2>&1
 reg unload HKLM\zSYSTEM >nul 2>&1
 echo Replacing Wallpapers
 del C:\ScratchDir\Windows\Web\Wallpaper\Windows\img19.jpg
+del C:\ScratchDir\Windows\Web\Wallpaper\Windows\img0.jpg
 copy /y %~dp0wallpaperdark.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img19.jpg
 copy /y %~dp0wallpaperlight.jpg c:\scratchdir\Windows\Web\Wallpaper\Windows\img0.jpg
 del C:\scratchdir\Windows\Web\Screen\img100.jpg
@@ -158,7 +160,7 @@ reg unload HKLM\zSYSTEM >nul 2>&1
 echo Unmounting image...
 dism /unmount-image /mountdir:c:\scratchdir /commit 
 cls
-echo the nano11 image is now completed. Proceeding with the making of the ISO...
+echo the Nano11 image is now completed. Proceeding with the making of the ISO...
 echo Copying unattended file for bypassing MS account on OOBE...
 copy /y %~dp0autounattend.xml c:\nano11\autounattend.xml
 echo.
